@@ -47,6 +47,10 @@ public:
     // Contrat :
     //
     rawData GetNextLine();
+    bool EOL();
+    bool Fail();
+    
+
 
     //------------------------------------------------- Surcharge d'opérateurs
     Reader & operator = ( const Reader & unReader );

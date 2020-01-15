@@ -68,12 +68,13 @@ int main(int argc, char *argv[])
     cout << "argument set : (g, t ,e) " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
     fileName = argv[optind];
     Reader logReader(fileName);
-    rawData donnee = logReader.GetNextLine();
-    cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
+    //rawData donnee = logReader.GetNextLine();
+    //cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
-    for (size_t i = 0; i < 10; i++) {
-        parseData(donnee, excludeFiles, timeSort, time);
+
+    while(!logReader.EOF()){
         donnee = logReader.GetNextLine();
+        parseData(donnee, excludeFiles, timeSort, time);
     }
     /* Other code omitted */
 

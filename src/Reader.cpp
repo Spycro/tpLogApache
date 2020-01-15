@@ -52,11 +52,18 @@ rawData Reader::GetNextLine()
 
     //permet de placer le fichier en bonne position pour recuperer la lligne suivante
     getline(fileStream, placeHolder);
-
     return data;
-
 }
 
+bool Reader::EOF()
+{
+    return fileStream.eof();
+}
+
+bool Reader::Fail()
+{
+    return fileStream.fail();
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
 Reader & Reader::operator = ( const Reader & unReader )
