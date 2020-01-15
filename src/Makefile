@@ -6,7 +6,7 @@ RMFLAGS=-f
 CPPFLAGS=-Wall -ansi -pedantic -std=c++11
 DEBUGFLAGS= -DMAP -g
 EDLFLAGS=
-INT=analog.h
+INT=analog.h Reader.h
 REAL=$(INT:.h=.cpp)
 OBJ=$(INT:.h=.o)
 EXE=analog
@@ -21,6 +21,7 @@ debug: CPPFLAGS+= $(DEBUGFLAGS)
 debug: $(EXE)
 
 analog.o : analog.cpp
+Reader.o : Reader.cpp Reader.h
 
 
 %.o : %.cpp
