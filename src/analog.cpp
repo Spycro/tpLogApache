@@ -94,6 +94,9 @@ void parseData(rawData data, bool exclude, bool date, string heure){
     }
 }
 
+
+//Grep pulls up 24926 results witt these criteria
+//Ours pulls up the same number : everything ok
 bool isImage(string url)
 {
     int numberOfFormat = 5;
