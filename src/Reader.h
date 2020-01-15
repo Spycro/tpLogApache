@@ -28,7 +28,7 @@ typedef struct rawData
     std::string dataQuantity;
     std::string referer;
     std::string userAgent;
-} rawData
+} rawData;
 //------------------------------------------------------------------------
 // Rôle de la classe <Reader>
 //
