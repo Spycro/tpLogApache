@@ -80,9 +80,12 @@ int main(int argc, char *argv[])
 
 
 void parseData(rawData data, bool exclude, bool date, string heure){
-    if(data.referer.find("http://intranet-if.insa-lyon.fr") == std::string::npos){
+    int index;
+    if(index = data.referer.find("http://intranet-if.insa-lyon.fr") != std::string::npos){
         cout << "need to trim it" << endl;
+        cout << data.referer[index] << endl;
     }
+
 
     if(exclude && (data.referer.find(".jpg") == std::string::npos
                     || data.target.find(".jpg") == std::string::npos )){
