@@ -1,6 +1,6 @@
 #include <unistd.h>
 #include <iostream>
-
+#include "Reader.h"
 
 using namespace std;
 
@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
     cout << "argument set : (g, t ,e) " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
     fileName = argv[optind];
     Reader logReader(fileName);
+
 
     /* Other code omitted */
 
