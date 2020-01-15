@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    //From man 3 getopt
+    //----------From man 3 getopt---------------
     //regarding time options
     string time;
     bool timeSort = false;
@@ -15,9 +15,10 @@ int main(int argc, char *argv[])
     bool graphMake = false;
     //regarding file exclusion
     bool excludeFiles = false;
-
-
     string fileName;
+
+
+
     char opt;
     while ((opt = getopt(argc, argv, "g:et:")) != -1) {
         switch (opt) {
@@ -52,13 +53,18 @@ int main(int argc, char *argv[])
 
     cout << optind << endl;
 
+
     if (optind >= argc) {
         cerr <<  "Expected argument after options" << endl;
         exit(EXIT_FAILURE);
     }
 
+
+
     cout << "name argument = " <<  argv[optind] << endl;
     cout << "argument set : (g, t ,e) " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
+    fileName = argv[optind];
+    Reader logReader(fileName);
 
     /* Other code omitted */
 
