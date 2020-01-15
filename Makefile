@@ -3,10 +3,10 @@ RM=@rm
 COMP=g++
 EDL=g++
 RMFLAGS=-f
-CPPFLAGS=-Wall -ansi -pedantic -std=c++11
+CPPFLAGS=-Wall -Werror -ansi -pedantic -std=c++11
 DEBUGFLAGS= -DMAP -g
 EDLFLAGS=
-INT=analog.h
+INT=
 REAL=$(INT:.h=.cpp)
 OBJ=$(INT:.h=.o)
 EXE=analog
@@ -30,7 +30,7 @@ analog.o : analog.cpp
 
 $(EXE) : $(OBJ)
 	$(ECHO) "edition des liens de <$(EXE)>"
-	$(EDL) -o ../bin/$(EXE) $(OBJ) $(LIBS)
+	$(EDL) -o bin/$(EXE) $(OBJ) $(LIBS)
 
 $(CLEAN) :
 	$(RM) $(RMFLAGS) $(OBJ) $(EXE) core
