@@ -47,9 +47,9 @@ public:
     // Contrat :
     //
     rawData GetNextLine();
-    bool EOL();
+    bool EOF();
     bool Fail();
-    
+
 
 
     //------------------------------------------------- Surcharge d'opérateurs
