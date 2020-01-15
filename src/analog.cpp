@@ -92,6 +92,15 @@ void parseData(rawData data, bool exclude, bool date, string heure){
     if(exclude && (isImage(data.referer) ||isImage(data.target)) ){
         cout << "found an image" << endl;
     }
+
+    if(date){
+        //Here things to do with date 
+        //TODO parse date and time
+    }
+
+    // From here on everything should be okay
+    //TODO
+    //Faire l'insertion dans les deux structures graphMap et unorderedHitMap
 }
 
 
