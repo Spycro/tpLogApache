@@ -96,7 +96,7 @@ void parseData(rawData data, bool exclude, bool date, string heure){
 bool isImage(string url)
 {
     int numberOfFormat = 5;
-    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", "jpeg"};
+    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".jpeg"};
     for(int i = 0; i< numberOfFormat; ++i)
     {
         if(url.find(imageType[i]) != std::string::npos)
