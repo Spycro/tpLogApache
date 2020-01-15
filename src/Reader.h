@@ -47,7 +47,7 @@ public:
     // Contrat :
     //
     rawData GetNextLine();
-    bool EOF();
+    bool EndOfFile();
     bool Fail();
 
 

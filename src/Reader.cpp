@@ -55,7 +55,7 @@ rawData Reader::GetNextLine()
     return data;
 }
 
-bool Reader::EOF()
+bool Reader::EndOfFile()
 {
     return fileStream.eof();
 }

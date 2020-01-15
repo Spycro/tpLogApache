@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     //cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
 
-    while(!logReader.EOF()){
+    while(!logReader.EndOfFile()){
         donnee = logReader.GetNextLine();
         parseData(donnee, excludeFiles, timeSort, time);
     }
