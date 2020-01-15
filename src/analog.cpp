@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
     for (size_t i = 0; i < 50; i++) {
-        parseData(donnee, exclusion, timeSort, time);
+        parseData(donnee, excludeFiles, timeSort, time);
         donnee = logReader.GetNextLine();
     }
     /* Other code omitted */
