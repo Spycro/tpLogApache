@@ -81,9 +81,9 @@ int main(int argc, char *argv[])
 
 void parseData(rawData data, bool exclude, bool date, string heure){
     int index;
-    if(index = data.referer.find("http://intranet-if.insa-lyon.fr") != std::string::npos){
+    if((index = data.referer.find("http://intranet-if.insa-lyon.fr")) != std::string::npos){
         cout << "need to trim it" << endl;
-        cout << data.referer[index] << endl;
+        cout << index << " " <<data.referer[index] << endl;
     }
 
 
