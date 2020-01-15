@@ -82,7 +82,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
     std::string fileName;
-    std::ofstream fileStream;
+    std::ifstream fileStream;
 
 };
 
