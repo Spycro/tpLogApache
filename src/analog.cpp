@@ -4,6 +4,8 @@
 
 using namespace std;
 
+const string localPath = "http://intranet-if.insa-lyon.fr";
+
 void parseData(rawData data, bool exclude, bool date, string heure);
 
 
@@ -80,10 +82,12 @@ int main(int argc, char *argv[])
 
 
 void parseData(rawData data, bool exclude, bool date, string heure){
-    int index;
-    if((index = data.referer.find("http://intranet-if.insa-lyon.fr")) != std::string::npos){
+    size_t index;
+    if((index = data.referer.find(localPath)) != std::string::npos){
         cout << "need to trim it" << endl;
-        cout << index << " " <<data.referer[index] << endl;
+
+        data.referer.erase(index, localPath.length());
+        cout << "trimmed : " << data.referer << endl;
     }
 
 
