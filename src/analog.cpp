@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
     cout << "name argument = " <<  argv[optind] << endl;
     cout << "argument set : (g, t ,e) " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
     fileName = argv[optind];
-    Reader logReader(fileName);
+    Reader logReader = new Reader(fileName);
 
 
     /* Other code omitted */
