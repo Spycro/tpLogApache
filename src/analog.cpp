@@ -7,7 +7,7 @@ using namespace std;
 const string localPath = "http://intranet-if.insa-lyon.fr";
 
 void parseData(rawData data, bool exclude, bool date, string heure);
-
+bool isImage(string url);
 
 
 int main(int argc, char *argv[])
@@ -84,15 +84,25 @@ int main(int argc, char *argv[])
 void parseData(rawData data, bool exclude, bool date, string heure){
     size_t index;
     if((index = data.referer.find(localPath)) != std::string::npos){
-        cout << "need to trim it" << endl;
-
         data.referer.erase(index, localPath.length());
-        cout << "trimmed : " << data.referer << endl;
     }
 
 
-    if(exclude && (data.referer.find(".jpg") == std::string::npos
-                    || data.target.find(".jpg") == std::string::npos )){
+    if(exclude && (isImage(data.referer) ||isImage(data.target)) ){
         cout << "found an image" << endl;
     }
+}
+
+bool isImage(string url)
+{
+    int numberOfFormat = 5;
+    string imageType[] = {".jpg", ".png", ".gif", ".bmp", "jpeg"}
+    for(int i = 0; i< numberOfFormat; ++i)
+    {
+        if(url.find(imageType[i]) != std::string::npos)
+        {
+            return true;
+        }
+    }
+    return false;
 }
