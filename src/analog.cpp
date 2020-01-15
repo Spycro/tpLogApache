@@ -65,6 +65,8 @@ int main(int argc, char *argv[])
     cout << "argument set : (g, t ,e) " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
     fileName = argv[optind];
     Reader logReader(fileName);
+    rawData donnee = logReader.GetNextLine();
+    cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
 
     /* Other code omitted */
