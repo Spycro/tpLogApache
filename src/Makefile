@@ -30,7 +30,7 @@ analog.o : analog.cpp
 
 $(EXE) : $(OBJ)
 	$(ECHO) "edition des liens de <$(EXE)>"
-	$(EDL) -o bin/$(EXE) $(OBJ) $(LIBS)
+	$(EDL) -o ../bin/$(EXE) $(OBJ) $(LIBS)
 
 $(CLEAN) :
 	$(RM) $(RMFLAGS) $(OBJ) $(EXE) core
