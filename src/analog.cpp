@@ -61,6 +61,17 @@ int main(int argc, char *argv[])
     cout << "argument set : (g, t ,e) " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
 
     /* Other code omitted */
-
     exit(EXIT_SUCCESS);
+
+
+    //debut du programme
+
+    
+
+
+
+
+
+
+
 }
