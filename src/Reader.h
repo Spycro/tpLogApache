@@ -63,7 +63,7 @@ public:
     // Contrat :
     //
 
-    Reader (std::string logFile = "anonyme.log");
+    Reader (std::string logFile);
     // Mode d'emploi :
     //
     // Contrat :
