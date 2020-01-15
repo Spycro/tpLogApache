@@ -4,6 +4,10 @@
 
 using namespace std;
 
+void parseData(rawData data, bool exclude, bool date, string heure);
+
+
+
 int main(int argc, char *argv[])
 {
     //----------From man 3 getopt---------------
@@ -51,9 +55,6 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    cout << optind << endl;
-
-
     if (optind >= argc) {
         cerr <<  "Expected argument after options" << endl;
         exit(EXIT_FAILURE);
@@ -68,8 +69,23 @@ int main(int argc, char *argv[])
     rawData donnee = logReader.GetNextLine();
     cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
-
+    for (size_t i = 0; i < 50; i++) {
+        parseData(donnee, exclusion, timeSort, time);
+        donnee = logReader.GetNextLine();
+    }
     /* Other code omitted */
 
     exit(EXIT_SUCCESS);
+}
+
+
+void parseData(rawData data, bool exclude, bool date, string heure){
+    if(data.referer.find("http://intranet-if.insa-lyon.fr") == std::string::npos){
+        cout << "need to trim it" << endl;
+    }
+
+    if(exclude && (data.referer.find(".jpg") == std::string::npos
+                    || data.target.find(".jpg") == std::string::npos )){
+        cout << "found an image" << endl;
+    }
 }
