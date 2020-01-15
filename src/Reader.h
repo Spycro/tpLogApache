@@ -17,17 +17,17 @@
 //------------------------------------------------------------------ Types
 typedef struct rawData
 {
-    string ip;
-    string logName;
-    string userName;
-    string date;
-    string method;
-    string target;
-    string httpVersion;
-    string code;
-    string dataQuantity;
-    string referer;
-    stirng userAgent;
+    std::string ip;
+    std::string logName;
+    std::string userName;
+    std::string date;
+    std::string method;
+    std::string target;
+    std::string httpVersion;
+    std::string code;
+    std::string dataQuantity;
+    std::string referer;
+    std::string userAgent;
 } rawData
 //------------------------------------------------------------------------
 // Rôle de la classe <Reader>
