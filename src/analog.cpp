@@ -8,6 +8,7 @@ const string localPath = "http://intranet-if.insa-lyon.fr";
 
 void parseData(rawData data, bool exclude, bool date, string heure);
 bool isImage(string url);
+void makeGraphFile();
 
 
 int main(int argc, char *argv[])
@@ -22,8 +23,6 @@ int main(int argc, char *argv[])
     //regarding file exclusion
     bool excludeFiles = false;
     string fileName;
-
-
 
     char opt;
     while ((opt = getopt(argc, argv, "g:et:")) != -1) {
@@ -94,7 +93,7 @@ void parseData(rawData data, bool exclude, bool date, string heure){
     }
 
     if(date){
-        //Here things to do with date 
+        //Here things to do with date
         //TODO parse date and time
     }
 
@@ -118,4 +117,10 @@ bool isImage(string url)
         }
     }
     return false;
+}
+
+void makeGraphFile()
+{
+
+    
 }
