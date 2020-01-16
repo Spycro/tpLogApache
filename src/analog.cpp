@@ -10,10 +10,11 @@ void parseData(rawData data, bool exclude, bool date, string heure);
 bool isImage(string url);
 void makeGraphFile();
 
-struct {
-    map<pair<string,string>, int>;
-
-}
+typedef struct {
+    unordered_map<pair<string,string>, int> grapMap;
+    unordered_map<string, int> unorderedHitMap;
+    multi_map<int, string> orderedHitMap;
+} mapStruct;
 
 int main(int argc, char *argv[])
 {
