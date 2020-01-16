@@ -191,8 +191,8 @@ void reverse(mapStruct & mesMaps)
 //Ours pulls up the same number : everything ok
 bool isImage(string url)
 {
-    int numberOfFormat = 5;
-    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".jpeg"};
+    int numberOfFormat = 7;
+    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".ico", ".js", ".css"};
     for(int i = 0; i< numberOfFormat; ++i)
     {
         if(url.find(imageType[i]) != std::string::npos)
