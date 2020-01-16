@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 
     //debut du programme
 
-    
+
 
 
 
@@ -105,7 +105,7 @@ void parseData(rawData data, bool exclude, bool date, string heure){
     }
 
     if(date){
-        //Here things to do with date 
+        //Here things to do with date
         //TODO parse date and time
     }
 
@@ -119,8 +119,8 @@ void parseData(rawData data, bool exclude, bool date, string heure){
 //Ours pulls up the same number : everything ok
 bool isImage(string url)
 {
-    int numberOfFormat = 5;
-    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".jpeg"};
+    int numberOfFormat = 7;
+    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".ico", ".js", ".css"};
     for(int i = 0; i< numberOfFormat; ++i)
     {
         if(url.find(imageType[i]) != std::string::npos)
