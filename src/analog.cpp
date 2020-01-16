@@ -1,12 +1,18 @@
 #include <unistd.h>
 #include <iostream>
-
+#include "Reader.h"
 
 using namespace std;
 
+const string localPath = "http://intranet-if.insa-lyon.fr";
+
+void parseData(rawData data, bool exclude, bool date, string heure);
+bool isImage(string url);
+
+
 int main(int argc, char *argv[])
 {
-    //From man 3 getopt
+    //----------From man 3 getopt---------------
     //regarding time options
     string time;
     bool timeSort = false;
@@ -15,9 +21,10 @@ int main(int argc, char *argv[])
     bool graphMake = false;
     //regarding file exclusion
     bool excludeFiles = false;
-
-
     string fileName;
+
+
+
     char opt;
     while ((opt = getopt(argc, argv, "g:et:")) != -1) {
         switch (opt) {
@@ -50,17 +57,65 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    cout << optind << endl;
-
     if (optind >= argc) {
         cerr <<  "Expected argument after options" << endl;
         exit(EXIT_FAILURE);
     }
 
+
+
     cout << "name argument = " <<  argv[optind] << endl;
     cout << "argument set : (g, t ,e) " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
+    fileName = argv[optind];
+    Reader logReader(fileName);
+    rawData donnee;
+    //cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
+
+    while(!logReader.EndOfFile()){
+        donnee = logReader.GetNextLine();
+        parseData(donnee, excludeFiles, timeSort, time);
+    }
     /* Other code omitted */
 
     exit(EXIT_SUCCESS);
+}
+
+
+void parseData(rawData data, bool exclude, bool date, string heure){
+    size_t index;
+    if((index = data.referer.find(localPath)) != std::string::npos){
+        data.referer.erase(index, localPath.length());
+    }
+
+
+    if(exclude && (isImage(data.referer) ||isImage(data.target)) ){
+        cout << "found an image" << endl;
+    }
+
+    if(date){
+        //Here things to do with date 
+        //TODO parse date and time
+    }
+
+    // From here on everything should be okay
+    //TODO
+    //Faire l'insertion dans les deux structures graphMap et unorderedHitMap
+}
+
+
+//Grep pulls up 24926 results witt these criteria
+//Ours pulls up the same number : everything ok
+bool isImage(string url)
+{
+    int numberOfFormat = 5;
+    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".jpeg"};
+    for(int i = 0; i< numberOfFormat; ++i)
+    {
+        if(url.find(imageType[i]) != std::string::npos)
+        {
+            return true;
+        }
+    }
+    return false;
 }
