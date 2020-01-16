@@ -136,7 +136,7 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
 
 
     if(exclude && (isImage(data.referer) ||isImage(data.target)) ){
-        cout << "found an image" << endl;
+        //cout << "found an image" << endl;
         return;
     }
 
@@ -157,7 +157,7 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
         }
         else
         {
-            mesMaps.graphMap.insert(make_pair(cle, 0));
+            mesMaps.graphMap.insert(make_pair(cle, 1));
         }
     }
 
