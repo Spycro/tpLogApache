@@ -1,23 +1,51 @@
 #include <unistd.h>
 #include <iostream>
+#include <map>
+#include <unordered_map>
+#include <iterator>
 #include "Reader.h"
+//#include <boost/functional/hash.hpp>
 
 using namespace std;
 
 const string localPath = "http://intranet-if.insa-lyon.fr";
 
-void parseData(rawData data, bool exclude, bool date, string heure);
+
+//Fonction de hashage simple prise de stack overflow
+//Necessaire pour l'utilisation d'un pair<string, string> en tant que cle
+struct pair_hash {
+    template <class T1, class T2>
+    std::size_t operator () (const std::pair<T1,T2> &p) const {
+        auto h1 = std::hash<T1>{}(p.first);
+        auto h2 = std::hash<T2>{}(p.second);
+        return h1 ^ h2;
+    }
+};
+
+typedef pair<string, string> Key; // pair de (target, ref)
+
+
+typedef struct mapStruct{
+    unordered_map<Key, int, pair_hash> graphMap;
+    unordered_map<string, int> unorderedHitMap;
+    multimap<int, string> orderedHitMap;
+} mapStruct;
+
+
+
+void parseData(rawData & data, bool exclude, bool date, string & heure, bool graph, mapStruct & mesMaps);
 bool isImage(string url);
 void makeGraphFile();
-
-typedef struct {
-    unordered_map<pair<string,string>, int> grapMap;
-    unordered_map<string, int> unorderedHitMap;
-    multi_map<int, string> orderedHitMap;
-} mapStruct;
+void reverse(mapStruct & mesMaps);
 
 int main(int argc, char *argv[])
 {
+    //initialisation de la structures
+
+    mapStruct mesMaps;
+
+
+
     //----------From man 3 getopt---------------
     //regarding time options
     string time;
@@ -78,15 +106,24 @@ int main(int argc, char *argv[])
 
     while(!logReader.EndOfFile()){
         donnee = logReader.GetNextLine();
-        parseData(donnee, excludeFiles, timeSort, time);
+        parseData(donnee, excludeFiles, timeSort, time, graphMake, mesMaps);
     }
     /* Other code omitted */
+    // Maintenant il faut inverser la map non ordonnee
+
+    reverse(mesMaps);
+    int i =0;
+    for(auto it=mesMaps.orderedHitMap.end(); it!=mesMaps.orderedHitMap.begin() && i<10;  i++)
+    {
+        it--;
+        cout << it->second << " | hit : " << it->first << endl;
+    }
 
     exit(EXIT_SUCCESS);
 }
 
 
-void parseData(rawData data, bool exclude, bool date, string heure){
+void parseData(rawData & data, bool exclude, bool date, string & heure, bool graph,  mapStruct & mesMaps){
     size_t index;
     if((index = data.referer.find(localPath)) != std::string::npos){
         data.referer.erase(index, localPath.length());
@@ -95,17 +132,54 @@ void parseData(rawData data, bool exclude, bool date, string heure){
 
     if(exclude && (isImage(data.referer) ||isImage(data.target)) ){
         cout << "found an image" << endl;
+        return;
     }
 
     if(date){
         //Here things to do with date
         //TODO parse date and time
+
     }
 
-    // From here on everything should be okay
-    //TODO
-    //Faire l'insertion dans les deux structures graphMap et unorderedHitMap
+    Key cle (data.target, data.referer);
+
+    std::unordered_map<Key, int, pair_hash>::iterator it;
+    if(graph)
+    {
+        if((it = mesMaps.graphMap.find(cle)) != mesMaps.graphMap.end())
+        {
+            it->second++;
+        }
+        else
+        {
+            mesMaps.graphMap.insert(make_pair(cle, 0));
+        }
+    }
+
+    std::unordered_map<string, int>::iterator at;
+
+    if((at = mesMaps.unorderedHitMap.find(data.target)) != mesMaps.unorderedHitMap.end())
+    {
+        at->second++;
+    }
+    else
+    {
+        mesMaps.unorderedHitMap.insert(make_pair(data.target, 0));
+    }
+
+
+
 }
+
+
+void reverse(mapStruct & mesMaps)
+{
+    for(auto it = mesMaps.unorderedHitMap.begin(); it!= mesMaps.unorderedHitMap.end(); it++)
+    {
+        mesMaps.orderedHitMap.insert(make_pair(it->second, it->first));
+    }
+}
+
 
 
 //Grep pulls up 24926 results witt these criteria
