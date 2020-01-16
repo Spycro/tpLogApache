@@ -37,7 +37,8 @@ rawData Reader::GetNextLine()
     getline(fileStream, data.ip, ' ');
     getline(fileStream, data.logName, ' ');
     getline(fileStream, data.userName, ' ');
-    getline(fileStream, data.date, ' ');
+    getline(fileStream, placeHolder, '[');
+    getline(fileStream, data.date, ']');
     getline(fileStream, placeHolder, '"');
     getline(fileStream, data.method, ' ');
     getline(fileStream, data.target, ' ');

@@ -69,13 +69,16 @@ int main(int argc, char *argv[])
     fileName = argv[optind];
     Reader logReader(fileName);
     rawData donnee;
-    //cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
+    donnee = logReader.GetNextLine();
+
+    cout << donnee.date << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
 
     while(!logReader.EndOfFile()){
         donnee = logReader.GetNextLine();
         parseData(donnee, excludeFiles, timeSort, time);
     }
+
     /* Other code omitted */
     exit(EXIT_SUCCESS);
 
@@ -107,6 +110,7 @@ void parseData(rawData data, bool exclude, bool date, string heure){
     if(date){
         //Here things to do with date
         //TODO parse date and time
+        index = data.date.find(":");
     }
 
     // From here on everything should be okay
