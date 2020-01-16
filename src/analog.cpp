@@ -33,20 +33,20 @@ int main(int argc, char *argv[])
             excludeFiles = true;
             break;
         default:
-            cerr << "Usage: " << argv[0] << "[-g filename] [-e] [-t time] logfile" << endl;
+            cerr << "Usage: " << argv[0] << " [-g filename] [-e] [-t time] logfile" << endl;
             exit(EXIT_FAILURE);
         }
     }
 
     if (argv[optind] == nullptr) {
         cerr << "Mandatory argument(s) missing" << endl;
-        cerr << "Usage: " << argv[0] << "[-g filename] [-e] [-t time] logfile" << endl;
+        cerr << "Usage: " << argv[0] << " [-g filename] [-e] [-t time] logfile" << endl;
         exit(EXIT_FAILURE);
     }
 
     if (argv[optind + 1] != nullptr){
         cerr << "Too many argument" << endl;
-        cerr << "Usage: " << argv[0] << "[-g filename] [-e] [-t time] logfile" << endl;
+        cerr << "Usage: " << argv[0] << " [-g filename] [-e] [-t time] logfile" << endl;
         exit(EXIT_FAILURE);
     }
 
