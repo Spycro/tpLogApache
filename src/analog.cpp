@@ -68,16 +68,30 @@ int main(int argc, char *argv[])
     fileName = argv[optind];
     Reader logReader(fileName);
     rawData donnee;
-    //cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
+    donnee = logReader.GetNextLine();
+
+    cout << donnee.date << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
 
     while(!logReader.EndOfFile()){
         donnee = logReader.GetNextLine();
         parseData(donnee, excludeFiles, timeSort, time);
     }
-    /* Other code omitted */
 
+    /* Other code omitted */
     exit(EXIT_SUCCESS);
+
+
+    //debut du programme
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -95,6 +109,7 @@ void parseData(rawData data, bool exclude, bool date, string heure){
     if(date){
         //Here things to do with date
         //TODO parse date and time
+        index = data.date.find(":");
     }
 
     // From here on everything should be okay
@@ -107,8 +122,8 @@ void parseData(rawData data, bool exclude, bool date, string heure){
 //Ours pulls up the same number : everything ok
 bool isImage(string url)
 {
-    int numberOfFormat = 5;
-    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".jpeg"};
+    int numberOfFormat = 7;
+    static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".ico", ".js", ".css"};
     for(int i = 0; i< numberOfFormat; ++i)
     {
         if(url.find(imageType[i]) != std::string::npos)
