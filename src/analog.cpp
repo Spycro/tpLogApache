@@ -35,7 +35,7 @@ typedef struct mapStruct{
 
 void parseData(rawData & data, bool exclude, bool date, string & heure, bool graph, mapStruct & mesMaps);
 bool isImage(string url);
-void makeGraphFile();
+void makeGraphFile(mapStruct &mesMaps, string nameFile);
 void reverse(mapStruct & mesMaps);
 
 int main(int argc, char *argv[])
@@ -119,6 +119,11 @@ int main(int argc, char *argv[])
         cout << it->second << " | hit : " << it->first << endl;
     }
 
+    if (graphMake)
+    {
+        makeGraphFile(mesMaps, graphFile);
+    }
+
     exit(EXIT_SUCCESS);
 }
 
@@ -198,8 +203,21 @@ bool isImage(string url)
     return false;
 }
 
-void makeGraphFile()
+void makeGraphFile(mapStruct &mesMaps, string nameFile)
 {
+    ofstream file(nameFile);
+    if(!file || file.fail()){
+        cerr << "Could not open file : + " << nameFile << "for writing" << endl;
+        exit(EXIT_FAILURE);
+    }
 
+    file << "digraph {" << endl;
+    auto itEnd = mesMaps.graphMap.end();
+    for (auto it = mesMaps.graphMap.begin(); it != itEnd; it++)
+    {
+        file << "    \"" << it->first.first << "\" -> \"" << it->first.second << "\" [label=\"" << to_string(it->second) << "\"];" << endl;
+    }
+    file << "}";
 
+    file.close();
 }
