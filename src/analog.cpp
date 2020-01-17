@@ -133,6 +133,16 @@ int main(int argc, char *argv[])
 
 void parseData(rawData & data, bool exclude, bool date, string & heure, bool graph,  mapStruct & mesMaps){
     size_t index;
+
+    //first we need to convert to lowercase everything :
+    for (char &c: data.referer) {
+		c = to_lowercase(c);
+	}
+    for (char &c: data.target) {
+		c = to_lowercase(c);
+	}
+
+
     if((index = data.referer.find(localPath)) != std::string::npos){
         data.referer.erase(index, localPath.length());
     }
