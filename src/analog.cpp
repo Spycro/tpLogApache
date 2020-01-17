@@ -106,14 +106,17 @@ int main(int argc, char *argv[])
     rawData donnee;
     //cout << donnee.ip << " " << donnee.userAgent << " " << donnee.target << " " << donnee.referer << " " << endl;
 
-
+    int numberOfLineParsed = 0;
     while(!logReader.EndOfFile()){
         donnee = logReader.GetNextLine();
+        numberOfLineParsed++;
         if (donnee.target != "")
         {
             parseData(donnee, excludeFiles, timeSort, time, graphMake, mesMaps);
         }
     }
+
+    cout << "Nombre de ligne lues : " << numberOfLineParsed << endl;
     /* Other code omitted */
     // Maintenant il faut inverser la map non ordonnee
 
