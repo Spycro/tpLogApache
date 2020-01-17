@@ -3,6 +3,9 @@
 #include <map>
 #include <unordered_map>
 #include <iterator>
+#include <algorithm>
+#include <cctype>
+#include <string>
 #include "Reader.h"
 //#include <boost/functional/hash.hpp>
 
@@ -135,12 +138,8 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     size_t index;
 
     //first we need to convert to lowercase everything :
-    for (char &c: data.referer) {
-		tolower(c);
-	}
-    for (char &c: data.target) {
-		tolower(c);
-	}
+    transform(data.referer.begin(), data.referer.end(), data.referer.begin(),::tolower);
+    transform(data.target.begin(), data.target.end(), data.target.begin(),::tolower);
 
 
     if((index = data.referer.find(localPath)) != std::string::npos){
