@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
     }
 
     cout << "Nombre de ligne lues : " << numberOfLineParsed << endl;
-    cout << "Nombre de ligne vide : " << nbLineVide << endl;
+    cout << "Nombre de ligne vide : " << nbLigneVide << endl;
 
     /* Other code omitted */
     // Maintenant il faut inverser la map non ordonnee
