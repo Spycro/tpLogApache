@@ -106,7 +106,10 @@ int main(int argc, char *argv[])
 
     while(!logReader.EndOfFile()){
         donnee = logReader.GetNextLine();
-        parseData(donnee, excludeFiles, timeSort, time, graphMake, mesMaps);
+        if (donnee.target != "")
+        {
+            parseData(donnee, excludeFiles, timeSort, time, graphMake, mesMaps);
+        }
     }
     /* Other code omitted */
     // Maintenant il faut inverser la map non ordonnee
@@ -133,7 +136,12 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     if((index = data.referer.find(localPath)) != std::string::npos){
         data.referer.erase(index, localPath.length());
     }
-
+    if((index = data.referer.find("?")) != std::string::npos){
+        data.referer.erase(index, data.referer.length()-index);
+    }
+    if((index = data.target.find("?")) != std::string::npos){
+        data.target.erase(index, data.target.length()-index);
+    }
 
     if(exclude && (isImage(data.referer) ||isImage(data.target)) ){
         //cout << "found an image" << endl;
@@ -143,7 +151,20 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     if(date){
         //Here things to do with date
         //TODO parse date and time
+        if (data.date.length() == 26)
+        {
+            //cout << data.date << " " << data.date.length() << endl;
+            data.date.erase(0, 15);
+            //cout << data.date << " " << data.date.length() << endl;
+            data.date.erase(2, 11);
+            //cout << data.date <<endl;
+        }
+        else return;
 
+        if (data.date != heure)
+        {
+            return;
+        }
     }
 
     Key cle (data.target, data.referer);
@@ -169,7 +190,7 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     }
     else
     {
-        mesMaps.unorderedHitMap.insert(make_pair(data.target, 0));
+        mesMaps.unorderedHitMap.insert(make_pair(data.target, 1));
     }
 
 
@@ -215,7 +236,7 @@ void makeGraphFile(mapStruct &mesMaps, string nameFile)
     auto itEnd = mesMaps.graphMap.end();
     for (auto it = mesMaps.graphMap.begin(); it != itEnd; it++)
     {
-        file << "    \"" << it->first.first << "\" -> \"" << it->first.second << "\" [label=\"" << to_string(it->second) << "\"];" << endl;
+        file << "    \"" << it->first.second << "\" -> \"" << it->first.first << "\" [label=\"" << to_string(it->second) << "\"];" << endl;
     }
     file << "}";
 
