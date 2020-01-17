@@ -136,10 +136,10 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
 
     //first we need to convert to lowercase everything :
     for (char &c: data.referer) {
-		c = to_lowercase(c);
+		tolower(c);
 	}
     for (char &c: data.target) {
-		c = to_lowercase(c);
+		tolower(c);
 	}
 
 
