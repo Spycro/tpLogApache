@@ -1,0 +1,3 @@
+Mandatory argument(s) missing
+Usage: ../../bin/analog [-g filename] [-e] [-t time] logfile
+

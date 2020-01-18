@@ -28,8 +28,10 @@
 
 # Executables
 *.exe
-*.out
+#*.out
 *.app
+
+*.csv
 
 # Repertory
 

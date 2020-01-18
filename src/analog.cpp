@@ -99,8 +99,8 @@ int main(int argc, char *argv[])
 
 
 
-    //cout << "name argument = " <<  argv[optind] << endl;
-    cout << "flag set (g, t, e) : " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
+
+    //cout << "flag set (g, t, e) : " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
     fileName = argv[optind];
     Reader logReader(fileName);
     rawData donnee;
@@ -116,12 +116,13 @@ int main(int argc, char *argv[])
         }
     }
 
-    cout << "Nombre de ligne lues : " << numberOfLineParsed << endl;
+    //cout << "Nombre de ligne lues : " << numberOfLineParsed << endl;
 
     /* Other code omitted */
     // Maintenant il faut inverser la map non ordonnee
 
     reverse(mesMaps);
+    cout << "TOP 10 : " << endl;
     int i =0;
     for(auto it=mesMaps.orderedHitMap.end(); it!=mesMaps.orderedHitMap.begin() && i<10;  i++)
     {
