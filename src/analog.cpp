@@ -149,7 +149,7 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
         data.referer.erase(data.referer.length() - 2, data.referer.length() - 1);
     }
 
-    if(data.target.length() > 1 data.target.back() == '/'){
+    if(data.target.length() > 1 && data.target.back() == '/'){
         data.target.erase(data.target.length() - 2, data.target.length() - 1);
     }
 
