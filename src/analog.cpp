@@ -145,15 +145,6 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     transform(data.referer.begin(), data.referer.end(), data.referer.begin(),::tolower);
     transform(data.target.begin(), data.target.end(), data.target.begin(),::tolower);
 
-    if(data.referer.length() > 1 && data.referer.back() == '/'){
-        data.referer.erase(data.referer.length() - 1, 1);
-    }
-
-    if(data.target.length() > 1 && data.target.back() == '/'){
-        data.target.erase(data.target.length() - 1, 1);
-    }
-
-
 
     if((index = data.referer.find(localPath)) != std::string::npos){
         data.referer.erase(index, localPath.length());
@@ -164,6 +155,17 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     if((index = data.target.find("?")) != std::string::npos){
         data.target.erase(index, data.target.length()-index);
     }
+
+    if(data.referer.length() > 1 && data.referer.back() == '/'){
+        data.referer.erase(data.referer.length() - 1, 1);
+    }
+
+    if(data.target.length() > 1 && data.target.back() == '/'){
+        data.target.erase(data.target.length() - 1, 1);
+    }
+
+
+
 
     if(exclude && (isImage(data.referer) ||isImage(data.target)) ){
         //cout << "found an image" << endl;
