@@ -1,0 +1,1 @@
+../../bin/analog -g graph.dot test4.log

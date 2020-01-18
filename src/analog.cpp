@@ -179,9 +179,9 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
         if (data.date.length() == 26)
         {
             //cout << data.date << " " << data.date.length() << endl;
-            data.date.erase(0, 15);
+            data.date.erase(0, 12);
             //cout << data.date << " " << data.date.length() << endl;
-            data.date.erase(2, 11);
+            data.date.erase(2, 14);
             //cout << data.date <<endl;
         }
         else return;

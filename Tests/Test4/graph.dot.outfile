@@ -1,0 +1,7 @@
+digraph {
+    "/b" -> "/e" [label="1"];
+    "/a" -> "/b" [label="2"];
+    "/d" -> "/b" [label="1"];
+    "/b" -> "/a" [label="2"];
+    "/c" -> "/b" [label="1"];
+}
