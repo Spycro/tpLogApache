@@ -99,8 +99,8 @@ int main(int argc, char *argv[])
 
 
 
-    cout << "name argument = " <<  argv[optind] << endl;
-    cout << "argument set : (g, t ,e) " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
+    //cout << "name argument = " <<  argv[optind] << endl;
+    cout << "flag set (g, t, e) : " <<graphMake << " " <<timeSort << " " << excludeFiles << endl;
     fileName = argv[optind];
     Reader logReader(fileName);
     rawData donnee;
