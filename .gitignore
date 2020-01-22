@@ -36,3 +36,9 @@
 # Repertory
 
 bin/*
+
+#sortie
+*.dot
+*.png
+*.jpg
+*.svg
