@@ -91,11 +91,10 @@ int main(int argc, char *argv[])
     }
 
     //cout << "Nombre de ligne lues : " << numberOfLineParsed << endl;
-
-    /* Other code omitted */
     // Maintenant il faut inverser la map non ordonnee
-
     reverse(mesMaps);
+
+    //Sortie du top 10
     cout << "TOP 10 : " << endl;
     int i =0;
     for(auto it=mesMaps.orderedHitMap.end(); it!=mesMaps.orderedHitMap.begin() && i<10;  i++)
@@ -104,6 +103,7 @@ int main(int argc, char *argv[])
         cout << it->second << " | hit : " << it->first << endl;
     }
 
+    // si -g specifie
     if (graphMake)
     {
         makeGraphFile(mesMaps, graphFile);
@@ -116,21 +116,22 @@ int main(int argc, char *argv[])
 void parseData(rawData & data, bool exclude, bool date, string & heure, bool graph,  mapStruct & mesMaps){
     size_t index;
 
-    //first we need to convert to lowercase everything :
+    //On passe tout en petite lettre
     transform(data.referer.begin(), data.referer.end(), data.referer.begin(),::tolower);
     transform(data.target.begin(), data.target.end(), data.target.begin(),::tolower);
 
-
+    //On supprime le localPath
     if((index = data.referer.find(localPath)) != std::string::npos){
         data.referer.erase(index, localPath.length());
     }
+    //On supprime les PostParameter
     if((index = data.referer.find("?")) != std::string::npos){
         data.referer.erase(index, data.referer.length()-index);
     }
     if((index = data.target.find("?")) != std::string::npos){
         data.target.erase(index, data.target.length()-index);
     }
-
+    //On supprime les "/" de fin d'URL
     if(data.referer.length() > 1 && data.referer.back() == '/'){
         data.referer.erase(data.referer.length() - 1, 1);
     }
@@ -148,8 +149,6 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     }
 
     if(date){
-        //Here things to do with date
-        //TODO parse date and time
         if (data.date.length() == 26)
         {
             //cout << data.date << " " << data.date.length() << endl;
@@ -167,7 +166,7 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     }
 
     Key cle (data.target, data.referer);
-
+    //On rempli la graphMap seulement si -g est speciefie
     std::unordered_map<Key, int, pair_hash>::iterator it;
     if(graph)
     {
@@ -182,7 +181,7 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
     }
 
     std::unordered_map<string, int>::iterator at;
-
+    // On rempli la map intermediaire au top 10
     if((at = mesMaps.unorderedHitMap.find(data.target)) != mesMaps.unorderedHitMap.end())
     {
         at->second++;
@@ -196,7 +195,7 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
 
 }
 
-
+//Function permettant de passer de la map non ordonnee a la map ordonnee
 void reverse(mapStruct & mesMaps)
 {
     for(auto it = mesMaps.unorderedHitMap.begin(); it!= mesMaps.unorderedHitMap.end(); it++)
@@ -207,8 +206,7 @@ void reverse(mapStruct & mesMaps)
 
 
 
-//Grep pulls up 24926 results witt these criteria
-//Ours pulls up the same number : everything ok
+//Permet de savoir si une extension interdite est dans l'URL
 bool isExludedFileType(string url)
 {
     int numberOfFormat = 7;
@@ -224,6 +222,7 @@ bool isExludedFileType(string url)
     return false;
 }
 
+//Permet de construire le graphe
 void makeGraphFile(mapStruct &mesMaps, string nameFile)
 {
     ofstream file(nameFile);

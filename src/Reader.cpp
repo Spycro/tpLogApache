@@ -96,6 +96,7 @@ Reader::~Reader ( )
 // Algorithme :
 //
 {
+    fileStream.close();
 #ifdef MAP
     cout << "Appel au destructeur de <Reader>" << endl;
 #endif
