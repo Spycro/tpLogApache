@@ -11,6 +11,4 @@ Nettoyer le dossier (a faire entre un make et un make debug) :
 make clean
 
 Executer :
-./exec
-
-Utilisation : 
+bin/analog
