@@ -53,12 +53,6 @@ public:
 
 
     //------------------------------------------------- Surcharge d'opérateurs
-    Reader & operator = ( const Reader & unReader );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
 
     //-------------------------------------------- Constructeurs - destructeur
     Reader ( const Reader & unReader );

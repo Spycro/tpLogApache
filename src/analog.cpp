@@ -7,39 +7,13 @@
 #include <cctype>
 #include <string>
 #include "Reader.h"
+#include "analog.h"
 //#include <boost/functional/hash.hpp>
 
 using namespace std;
 
+//Nom du domaine local
 const string localPath = "http://intranet-if.insa-lyon.fr";
-
-
-//Fonction de hashage simple prise de stack overflow
-//Necessaire pour l'utilisation d'un pair<string, string> en tant que cle
-struct pair_hash {
-    template <class T1, class T2>
-    std::size_t operator () (const std::pair<T1,T2> &p) const {
-        auto h1 = std::hash<T1>{}(p.first);
-        auto h2 = std::hash<T2>{}(p.second);
-        return h1 ^ h2;
-    }
-};
-
-typedef pair<string, string> Key; // pair de (target, ref)
-
-
-typedef struct mapStruct{
-    unordered_map<Key, int, pair_hash> graphMap;
-    unordered_map<string, int> unorderedHitMap;
-    multimap<int, string> orderedHitMap;
-} mapStruct;
-
-
-
-void parseData(rawData & data, bool exclude, bool date, string & heure, bool graph, mapStruct & mesMaps);
-bool isExludedFileType(string url);
-void makeGraphFile(mapStruct &mesMaps, string nameFile);
-void reverse(mapStruct & mesMaps);
 
 int main(int argc, char *argv[])
 {
