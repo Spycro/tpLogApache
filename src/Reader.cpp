@@ -67,12 +67,6 @@ bool Reader::Fail()
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
-Reader & Reader::operator = ( const Reader & unReader )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
 
 //-------------------------------------------- Constructeurs - destructeur
 Reader::Reader ( const Reader & unReader )

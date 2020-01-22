@@ -37,7 +37,7 @@ typedef struct mapStruct{
 
 
 void parseData(rawData & data, bool exclude, bool date, string & heure, bool graph, mapStruct & mesMaps);
-bool isExludedFileType(string url);
+bool isImage(string url);
 void makeGraphFile(mapStruct &mesMaps, string nameFile);
 void reverse(mapStruct & mesMaps);
 
@@ -168,7 +168,7 @@ void parseData(rawData & data, bool exclude, bool date, string & heure, bool gra
 
 
 
-    if(exclude && (isExludedFileType(data.referer) ||isExludedFileType(data.target)) ){
+    if(exclude && (isImage(data.referer) ||isImage(data.target)) ){
         //cout << "found an image" << endl;
         return;
     }
@@ -235,13 +235,14 @@ void reverse(mapStruct & mesMaps)
 
 //Grep pulls up 24926 results witt these criteria
 //Ours pulls up the same number : everything ok
-bool isExludedFileType(string url)
+bool isImage(string url)
 {
     int numberOfFormat = 7;
     static const string imageType[] = {".jpg", ".png", ".gif", ".bmp", ".ico", ".js", ".css"};
     for(int i = 0; i< numberOfFormat; ++i)
     {
-        if(url.find(imageType[i]) != std::string::npos)
+        unsigned int pos;
+        if((pos = url.rfind(imageType[i])) != std::string::npos && pos == (url.length()-imageType[i].length()))
         {
             return true;
         }
